@@ -47,15 +47,12 @@ function GameBoard(){
     };
 
     // Mark the cell, if it is already occupied, then return null
-    const markCell = (player) => {
-        // Get player move to position
-        const [row, column] = player.makeMove();
-
+    const markCell = (cellId, marker) => {
         // Find the cell
-        const cell = findCell(row, column);
+        const cell = findCell(cellId);
 
        // Set the cell to the player's marker
-        cell.setCellMarker(player);
+        cell.setCellMarker(marker);
     };
 
     // Function to print the gameboard
@@ -81,15 +78,15 @@ function Cell(row, column, id){
     const cellId = id;
     const position = {row, column};
 
-    const setCellMarker = (player) => {
-        cellMarker = player.getMarker();
-    }
+    const setCellMarker = (marker) => cellMarker = marker;
+
+    const getCellMarker = () => cellMarker;
+
     const getCellId = () => cellId;
 
     const getPosition = () => position;
 
-    const getCellMarker = () => cellMarker;
-
+   
     return{
         getPosition,
         getCellId,
@@ -142,8 +139,8 @@ function GameController(){
         console.log(`It's now ${activePlayer}'s turn.`);
     };
 
-    const playRound = (row, column) => {
-        console.log(`${activePlayer} chose ${}`);
+    const playRound = (cellId) => {
+        board.setCellMarker(cellId, activePlayer.getMarker());
     };
 
     return {
