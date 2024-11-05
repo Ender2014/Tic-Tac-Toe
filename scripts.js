@@ -16,8 +16,24 @@ function GameBoard(){
 
     const getBoard = () => board;
 
-    const markCell = (row, column, player) => {
+    const findCell = (row, column) => {
+        for (const boardRow of board) {
+            const cell = boardRow.find((cell) => {
+                const cellPosition = cell.getPosition();
+                return cellPosition.row === row && cellPosition.column === column;
+            });
+            if (cell) return cell; // Return as soon as we find the matching cell
+        }
+        return null; // Return null if no cell is found
+    };
 
+    const markCell = (row, column, player) => {
+        // find the cell
+        const cell = findCell(row, column);
+        
+     
+        
+        cell.setCellMarker(player);
     };
 
     const printBoard = () => {
@@ -32,7 +48,7 @@ function GameBoard(){
 
     const clearBoard = () => {
         board.splice(0, arr.length);
-        populateBoard()
+        populateBoard();
     };
 
     return {
@@ -47,16 +63,16 @@ function Cell(row, column){
     let cellMarker = 0;
     const position = {row, column};
 
-    const setCellMarker = (playerMarker) => {
-        cellMarker = playerMarker;
+    const setCellMarker = (player) => {
+        cellMarker = player.getMarker();
     }
 
-    const getposition = () => position;
+    const getPosition = () => position;
 
     const getCellMarker = () => cellMarker;
 
     return{
-        getposition,
+        getPosition,
         getCellMarker,
         setCellMarker
     };
@@ -69,8 +85,8 @@ function createPlayer(name, marker){
     let score = 0;
 
     // Getter;
-    const getName = () => name;
-    const getMarker = () => marker;
+    const getName = () => playerName;
+    const getMarker = () => playerMarker;
     const getScore = () => score;
 
     // Add score to player when they win;
