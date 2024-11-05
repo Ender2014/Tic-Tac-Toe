@@ -230,15 +230,17 @@ function Game(player1Name, player2Name){
 
 // Display Controller
 (function() {
-    const names = ["PLAYER 1", "PLAYER 2"]
+    const names = ["PLAYER 1", "PLAYER 2"];
     const game = Game(names[0], names[1]);
     const domBoard = document.querySelector(".game-board");
     const domCells = document.querySelectorAll(".cell");
-    const domPlayer1Name= document.querySelector(".player1").children[0];
+    const domPlayer1Name = document.querySelector(".player1").children[0];
     const domPlayer1Score = document.querySelector(".player1").children[1];
-    const domPlayer2Name= document.querySelector(".player2").children[0];
+    const domPlayer2Name = document.querySelector(".player2").children[0];
     const domPlayer2Score = document.querySelector(".player2").children[1];
     const domTieScore = document.querySelector(".tie").children[1];
+    
+    let gameOver = false; // Flag to check if the game is over
 
     domPlayer1Name.textContent = names[0];
     domPlayer2Name.textContent = names[1];
@@ -247,33 +249,42 @@ function Game(player1Name, player2Name){
         const p = cell.children[0];
 
         cell.addEventListener("click", () => {
+            if (gameOver) {
+                // Reset the game if already over
+                resetGame();
+                return;
+            }
+
             const activePlayer = game.getActivePlayer();
             const result = game.playRound(index + 1);
 
-            if(result !== "error"){
+            if (result !== "error") {
                 p.textContent = activePlayer.getMarker();
             }
 
-            if(result === "full" || result === "won"){
-                for(const cell of domCells){
-                    const p = cell.children[0];
-                    p.textContent = "";
+            if (result === "full" || result === "won") {
+                gameOver = true; // Set game over flag
+
+                if (result === "won") {
+                    if (activePlayer.getName() === names[0]) {
+                        domPlayer1Score.textContent = activePlayer.getScore();
+                    } else if (activePlayer.getName() === names[1]) {
+                        domPlayer2Score.textContent = activePlayer.getScore();
+                    }
+                } else if (result === "full") {
+                    domTieScore.textContent = parseInt(domTieScore.textContent) + 1; // Increment tie score
                 }
-
-                if(result === "won" && activePlayer.getName() === names[0]){
-                    domPlayer1Score.textContent =  activePlayer.getScore();
-
-                }else if(result === "won" && activePlayer.getName() === names[1]){
-                    domPlayer2Score.textContent =  activePlayer.getScore();
-                }else if(result === "full"){
-                    domTieScore.textContent += 1;
-                }
-
-
             }
         });
     });
+
+    function resetGame() {
+        // Clear the board and reset game state
+        domCells.forEach(cell => {
+            const p = cell.children[0];
+            p.textContent = ""; // Clear cell text
+        });
+        game.reset(); // Assuming this resets the game state in your Game object
+        gameOver = false; // Reset game over flag
+    }
 })();
-  
-
-

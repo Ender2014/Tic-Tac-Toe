@@ -178,7 +178,7 @@ p{
 }
 
 .cell:hover{
-        cursor: pointer;
+    cursor: pointer;
 }
 
 .cell p{
