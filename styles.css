@@ -152,22 +152,8 @@ p{
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: var(--pad-small);
-    width:min(60vw, 50em);
-    height: min(60vw, 50em);
-}
-
-@media (max-width: 40em) {
-    .game-board {
-        width: 80vw;
-        height: 80vw;
-    }
-}
-
-@media (max-width: 25em) {
-    .game-board {
-        width: 90vw;
-        height: 90vw;
-    }
+    width:min(50vw, 30em);
+    height: min(50vw, 30em);
 }
 
 .cell{
@@ -183,10 +169,69 @@ p{
 
 .cell p{
     position: absolute;
-    font-size: var(--fs-xl);
+    font-size: calc(11rem + 1vw);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); 
 }
+
+
+@media (max-width: 30em) {
+    .game-board {
+        width: 90vw;  
+        height: 90vw; 
+    }
+
+    .cell p {
+        font-size: calc(4rem + 1vw); 
+    }
+}
+
+@media (max-width: 48em) { 
+    .game-board {
+        width: 80vw; 
+        height: 80vw; 
+    }
+
+    .cell p {
+        font-size: calc(5rem + 1vw); 
+    }
+}
+
+@media (max-width: 64em) { 
+    .game-board {
+        width: 70vw;  
+        height: 70vw;
+    }
+
+    .cell p {
+        font-size: calc(6rem + 1vw); 
+    }
+}
+
+
+@media (max-width: 80em) { 
+    .game-board {
+        width: 60vw;  
+        height: 60vw; 
+    }
+
+    .cell p {
+        font-size: calc(7rem + 1vw);
+    }
+}
+
+
+@media (min-width: 80em) {
+    .game-board {
+        width: 50vw; 
+        height: 50vw; 
+    }
+
+    .cell p {
+        font-size: calc(8rem + 1vw);
+    }
+}
+
 
 /* Gameboard - End*/
