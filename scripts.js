@@ -3,22 +3,22 @@ function GameBoard(){
     const rows = 3;
     const columns = 3;
     const board = [];
-    populateBoard();
-
-    // Function to return the board array
-    const populateBoard = () => {
-        for (let i = 0; i < rows; i++){
-            board[i] = i;
-            for(let j = 0; j < columns; j++){
-                board[i].push(Cell(i, j));  
-            }
+    for (let i = 0; i < rows; i++) {
+        board[i] = [];
+        for (let j = 0; j < columns; j++) {
+          board[i].push(Cell());
         }
-    };
+      }
 
     // Function to reset the board array;
     const clearBoard = () => {
         board.splice(0, arr.length);
-        populateBoard();
+        for (let i = 0; i < rows; i++) {
+            board[i] = [];
+            for (let j = 0; j < columns; j++) {
+              board[i].push(Cell());
+            }
+          }
     };
 
     // Function to return the board array
@@ -60,11 +60,9 @@ function GameBoard(){
     // Function to print the gameboard
     const printBoard = () => {
         const updatedBoard = board.map((row) => {
-            row.map((cell) => {
-                cell.getCellMarker();
-            });
+            return row.map((cell) => cell.getCellMarker());
         });
-
+    
         console.log(updatedBoard);
     };
 
