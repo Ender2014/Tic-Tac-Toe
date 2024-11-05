@@ -3,20 +3,22 @@ function GameBoard(){
     const rows = 3;
     const columns = 3;
     const board = [];
+    let idCounter = 0;
     for (let i = 0; i < rows; i++) {
         board[i] = [];
         for (let j = 0; j < columns; j++) {
-          board[i].push(Cell());
+          board[i].push(Cell(i, j, idCounter++));
         }
       }
 
     // Function to reset the board array;
     const clearBoard = () => {
         board.splice(0, arr.length);
+        idCounter = 0;
         for (let i = 0; i < rows; i++) {
             board[i] = [];
             for (let j = 0; j < columns; j++) {
-              board[i].push(Cell());
+              board[i].push(Cell(i, j));
             }
           }
     };
@@ -74,14 +76,16 @@ function GameBoard(){
     }
 }
 
-function Cell(row, column){
+function Cell(row, column, id){
     // Properties
     let cellMarker = 0;
+    const cellId = id;
     const position = {row, column};
 
     const setCellMarker = (player) => {
         cellMarker = player.getMarker();
     }
+    const getCellId = () => cellId;
 
     const getPosition = () => position;
 
@@ -138,8 +142,8 @@ function GameController(){
         console.log(`It's now ${activePlayer}'s turn.`);
     };
 
-    const playRound = () => {
-        
+    const playRound = (row, column) => {
+        console.log(`${activePlayer} chose ${}`);
     };
 
     return {
