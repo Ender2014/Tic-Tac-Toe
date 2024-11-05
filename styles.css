@@ -7,19 +7,14 @@
 
 :root {
     line-height: 1.5;
-    --color-main-clr: #4A90E2;     
-    --color-contrast: #6EB5FF;      
-    --color-accent: #B3D4FF;        
-    --color-btn-hover: #5C9FD9;
-    --color-error: #FF3B30;
-    --color-btn-links:  #6EB5FF;     
-    --color-text-bg: #F1FAFF;      
-    --color-text-main: #F1FAFF; 
+    --color-bg: #000000;
+    --color-contrast: #FFFFFF;
     
-    --fw-thin: 100;
-    --fw-regular: 500;
-    --fw-bold: 600;
-    --fw-black: 700;
+    --fw-300: 300;
+    --fw-400: 400;
+    --fw-500: 400;
+    --fw-600: 600;
+    --fw-xl: 800;
 
     --fs-300: 0.75rem;
     --fs-400: 1rem;
@@ -110,3 +105,8 @@ p{
 
 /* Global - End*/
 /*------------------------------------------------------------*/
+/* Gameboard - Start*/
+
+.game-board{
+
+}
