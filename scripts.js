@@ -7,7 +7,7 @@ function GameBoard(){
     for (let i = 0; i < rows; i++) {
         board[i] = [];
         for (let j = 0; j < columns; j++) {
-          board[i].push(Cell(idCounter++));
+          board[i].push(Cell(i, j, idCounter++));
         }
       }
 
@@ -112,21 +112,14 @@ function Player(name, marker){
     // Properties;
     const playerName = name;
     const playerMarker = marker;
-    let score = 0;
 
     // Getter;
     const getName = () => playerName;
     const getMarker = () => playerMarker;
-    const getScore = () => score;
-
-    // Add score to player when they win;
-    const addScore = (points) => score += points;
-        
+     
     return {
         getName, 
         getMarker, 
-        getScore,
-        addScore
     };                     
 }
 
