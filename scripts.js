@@ -126,10 +126,6 @@ function Player(name, marker){
     // Add score to player when they win;
     const addScore = (points) => score += points;
 
-    // Move player
-    const makeMove = (position) => position;
-
-        
     return {
         getName, 
         getMarker, 
@@ -234,24 +230,46 @@ function Game(player1Name, player2Name){
 
 // Display Controller
 (function() {
-    const game = Game("player1", "player2");
+    const names = ["PLAYER 1", "PLAYER 2"]
+    const game = Game(names[0], names[1]);
     const domBoard = document.querySelector(".game-board");
     const domCells = document.querySelectorAll(".cell");
+    const domPlayer1Name= document.querySelector(".player1").children[0];
+    const domPlayer1Score = document.querySelector(".player1").children[1];
+    const domPlayer2Name= document.querySelector(".player2").children[0];
+    const domPlayer2Score = document.querySelector(".player2").children[1];
+    const domTieScore = document.querySelector(".tie").children[1];
+
+    domPlayer1Name.textContent = names[0];
+    domPlayer2Name.textContent = names[1];
 
     domCells.forEach((cell, index) => {
-        let p = cell.children[0];
+        const p = cell.children[0];
 
         cell.addEventListener("click", () => {
-            let activePlayer = game.getActivePlayer();
-            let result = game.playRound(index + 1);
+            const activePlayer = game.getActivePlayer();
+            const result = game.playRound(index + 1);
 
-            p.textContent = activePlayer.getMarker();
+            if(result !== "error"){
+                p.textContent = activePlayer.getMarker();
+            }
 
             if(result === "full" || result === "won"){
                 for(const cell of domCells){
-                    let p = cell.children[0];
+                    const p = cell.children[0];
                     p.textContent = "";
                 }
+
+                if(result === "won" && activePlayer.getName() === names[0]){
+                    domPlayer1Score.textContent =  activePlayer.getScore();
+
+                }else if(result === "won" && activePlayer.getName() === names[1]){
+                    domPlayer2Score.textContent =  activePlayer.getScore();
+                }else if(result === "full"){
+                    domTieScore.textContent += 1;
+                }
+
+
             }
         });
     });
