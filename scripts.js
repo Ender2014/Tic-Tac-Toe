@@ -39,10 +39,12 @@ function GameBoard(){
                 if (cell.getCellMarker() === 0) {
                     return cell; // Return the unoccupied cell
                 } else {
+                    console.log( `Cell ${id} already occupied!` );
                     return null; // The cell is occupied
                 }
             }
         }
+        console.log( `Cell ${id} doesn't exist!` );
         return null; // Return null if no cell with the given position is found
     };
 
@@ -50,6 +52,10 @@ function GameBoard(){
     const markCell = (cellId, marker) => {
         // Find the cell
         const cell = findCell(cellId);
+        
+        if (cell === null){
+            return null;
+        }
 
        // Set the cell to the player's marker
         cell.setCellMarker(marker);
@@ -135,10 +141,12 @@ function GameController(){
     };
 
     const playRound = (cellId) => {
-        console.log(
-            `${activePlayer.getName()} chose cell ${cellId}...`
-          );
-        board.markCell(cellId, activePlayer.getMarker());
+        console.log( `${activePlayer.getName()} chose cell ${cellId}...` );
+
+        if( board.markCell(cellId, activePlayer.getMarker()) === null) {
+            return null;
+        }
+
         switchPlayerTurn();
         printNewRound();
     };
