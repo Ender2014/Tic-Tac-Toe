@@ -212,6 +212,7 @@ function Game(player1Name, player2Name){
         const result = checkResult();
         if (result) {
             console.log(`Winner is ${activePlayer.getName()}!`);
+            activePlayer.addScore(1);
             board.clearBoard();
             return "won";
 
