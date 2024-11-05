@@ -86,7 +86,6 @@ function Cell(row, column, id){
 
     const getPosition = () => position;
 
-   
     return{
         getPosition,
         getCellId,
@@ -108,14 +107,10 @@ function Player(name, marker){
 
     // Add score to player when they win;
     const addScore = (points) => score += points;
-
-    // Player will make a move;
-    const makeMove = (cellID) => cellID;
         
     return {
         getName, 
         getMarker, 
-        makeMove,
         getScore,
         addScore
     };                     
