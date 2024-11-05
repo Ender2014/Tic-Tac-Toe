@@ -39,12 +39,10 @@ function GameBoard(){
                 if (cell.getCellMarker() === 0) {
                     return cell; // Return the unoccupied cell
                 } else {
-                    console.log( `Cell ${id} already occupied!` );
                     return null; // The cell is occupied
                 }
             }
         }
-        console.log( `Cell ${id} doesn't exist!` );
         return null; // Return null if no cell with the given position is found
     };
 
@@ -135,6 +133,23 @@ function GameController(){
         activePlayer = (activePlayer === playerOne) ? playerTwo : playerOne;
     };
 
+    const checkResult = () => {
+        const gameBoard = board.getBoard();
+
+        // Check for horizontal
+        const horizontal = gameBoard.forEach((row) => {
+            return row.reduce((a, b) => { 
+                return (a === b) ? a : (!b); 
+            }) === arr[0];
+        });
+
+        const vertical = "placeholder";
+
+        const diagonal = "placeholder";
+
+        return (vertical || diagonal || horizontal) ? true : false;
+    }
+
     const printNewRound = () => {
         board.printBoard();
         console.log(`It's now ${activePlayer.getName()}'s turn.`);
@@ -143,10 +158,20 @@ function GameController(){
     const playRound = (cellId) => {
         console.log( `${activePlayer.getName()} chose cell ${cellId}...` );
 
-        if( board.markCell(cellId, activePlayer.getMarker()) === null) {
-            return null;
+        // Error checking
+        const markedCell = board.markCell(cellId, activePlayer.getMarker())
+        if( markedCell === null) {
+            console.log( `Cell ${id} doesn't exist / already occupied!` );
+            return;
         }
 
+        // Win Con
+        const activerPlayerWon = checkResult();
+        if (activerPlayerWon) {
+            console.log(`Winner is ${activePlayer}!`);
+            return;
+        }
+        
         switchPlayerTurn();
         printNewRound();
     };
