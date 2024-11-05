@@ -5,6 +5,7 @@ function GameBoard(){
     const board = [];
     populateBoard();
 
+    // Function to return the board array
     const populateBoard = () => {
         for (let i = 0; i < rows; i++){
             board[i] = i;
@@ -14,28 +15,49 @@ function GameBoard(){
         }
     };
 
+    // Function to reset the board array;
+    const clearBoard = () => {
+        board.splice(0, arr.length);
+        populateBoard();
+    };
+
+    // Function to return the board array
     const getBoard = () => board;
 
+    // Function to find the corresponding cell
     const findCell = (row, column) => {
         for (const boardRow of board) {
             const cell = boardRow.find((cell) => {
                 const cellPosition = cell.getPosition();
                 return cellPosition.row === row && cellPosition.column === column;
             });
-            if (cell) return cell; // Return as soon as we find the matching cell
+            
+            // If we find the cell, check if it’s unoccupied
+            if (cell) {
+                // Check if the cell marker is 0 (unoccupied)
+                if (cell.getCellMarker() === 0) {
+                    return cell; // Return the unoccupied cell
+                } else {
+                    return null; // The cell is occupied
+                }
+            }
         }
-        return null; // Return null if no cell is found
+        return null; // Return null if no cell with the given position is found
     };
 
-    const markCell = (row, column, player) => {
-        // find the cell
+    // Mark the cell, if it is already occupied, then return null
+    const markCell = (player) => {
+        // Get player move to position
+        const [row, column] = player.makeMove();
+
+        // Find the cell
         const cell = findCell(row, column);
-        
-     
-        
+
+       // Set the cell to the player's marker
         cell.setCellMarker(player);
     };
 
+    // Function to print the gameboard
     const printBoard = () => {
         const updatedBoard = board.map((row) => {
             row.map((cell) => {
@@ -44,11 +66,6 @@ function GameBoard(){
         });
 
         console.log(updatedBoard);
-    };
-
-    const clearBoard = () => {
-        board.splice(0, arr.length);
-        populateBoard();
     };
 
     return {
@@ -93,9 +110,7 @@ function createPlayer(name, marker){
     const addScore = (points) => score += points;
 
     // Player will make a move;
-    const makeMove = () => {
-
-    };
+    const makeMove = (row, column) => [row, column];
         
     return {
         getName, 
