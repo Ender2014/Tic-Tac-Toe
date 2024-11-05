@@ -26,6 +26,23 @@ function GameBoard(){
     // Function to return the board array
     const getBoard = () => board;
 
+    const isBoardFull = () => {
+        // Check if there is a winner first
+        if (checkResult() !== 0) {
+            return false; // There's a winner, so the board isn't full in terms of a draw
+        }
+    
+        // Check if the board is full
+        for (let row of board) {
+            for (let cell of row) {
+                if (cell.getCellMarker() === 0) { // Assuming 0 represents an empty cell
+                    return false; // Found an empty cell, the board isn't full
+                }
+            }
+        }
+        return true; // No empty cells found, the board is full
+    };
+
     // Function to find the corresponding cell
     const findCell = (id) => {
         for (const row of board) {
@@ -72,7 +89,8 @@ function GameBoard(){
         getBoard,
         markCell,
         printBoard,
-        clearBoard
+        clearBoard,
+        isBoardFull
     }
 }
 
@@ -133,23 +151,41 @@ function GameController(){
         activePlayer = (activePlayer === playerOne) ? playerTwo : playerOne;
     };
 
+    // Game logic
     const checkResult = () => {
-        const gameBoard = board.getBoard();
+        const gameBoard = board.getBoard(); 
+        const size = gameBoard.length;
+    
+        // Check for horizontal wins
+        for (let row = 0; row < size; row++) {
+            const firstCellMarker = gameBoard[row][0].getCellMarker();
+            if (firstCellMarker !== 0 && gameBoard[row].every(cell => cell.getCellMarker() === firstCellMarker)) {
+                return true; 
+            }
+        }
+    
+        // Check for vertical wins
+        for (let col = 0; col < size; col++) {
+            const firstCellMarker = gameBoard[0][col].getCellMarker();
+            if (firstCellMarker !== 0 && gameBoard.every(row => row[col].getCellMarker() === firstCellMarker)) {
+                return true;
+            }
+        }
+    
+        // Check for diagonal wins (top-left to bottom-right)
+        const firstDiagonalMarker = gameBoard[0][0].getCellMarker();
+        if (firstDiagonalMarker !== 0 && gameBoard.every((row, index) => row[index].getCellMarker() === firstDiagonalMarker)) {
+            return true; 
+        }
 
-        // Check for horizontal
-        const horizontal = gameBoard.forEach((row) => {
-            return row.reduce((a, b) => { 
-                return (a === b) ? a : (!b); 
-            }) === arr[0];
-        });
-
-        const vertical = "placeholder";
-
-        const diagonal = "placeholder";
-
-        return (vertical || diagonal || horizontal) ? true : false;
-    }
-
+        // Check for diagonal wins (top-right to bottom-left)
+        const secondDiagonalMarker = gameBoard[0][size - 1].getCellMarker();
+        if (secondDiagonalMarker !== 0 && gameBoard.every((row, index) => row[size - 1 - index].getCellMarker() === secondDiagonalMarker)) {
+            return true; 
+        }
+        
+        return false; // Return false if there is no winner yet
+    };
     const printNewRound = () => {
         board.printBoard();
         console.log(`It's now ${activePlayer.getName()}'s turn.`);
@@ -164,11 +200,12 @@ function GameController(){
             console.log( `Cell ${id} doesn't exist / already occupied!` );
             return;
         }
+        // Full?
 
         // Win Con
         const activerPlayerWon = checkResult();
         if (activerPlayerWon) {
-            console.log(`Winner is ${activePlayer}!`);
+            console.log(`Winner is ${activePlayer.getName()}!`);
             return;
         }
         
