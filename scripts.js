@@ -14,12 +14,13 @@ function GameBoard(){
     // Function to reset the board array;
     const clearBoard = () => {
         board.splice(0, rows);
+
         console.log(board.length)
         idCounter = 1;
         for (let i = 0; i < rows; i++) {
             board[i] = [];
             for (let j = 0; j < columns; j++) {
-              board[i].push(Cell(idCounter++));
+              board[i].push(Cell(i, j, idCounter++));
             }
           }
     };
@@ -90,10 +91,11 @@ function GameBoard(){
     }
 }
 
-function Cell(id){
+function Cell(row, column, id){
     // Properties
     let cellMarker = 0;
     const cellId = id;
+    const position = {row, column};
 
     const setCellMarker = (marker) => cellMarker = marker;
 
@@ -101,7 +103,10 @@ function Cell(id){
 
     const getCellId = () => cellId;
 
+    const getPosition = () => position;
+
     return{
+        getPosition,
         getCellId,
         getCellMarker,
         setCellMarker
@@ -112,14 +117,21 @@ function Player(name, marker){
     // Properties;
     const playerName = name;
     const playerMarker = marker;
+    let score = 0;
 
     // Getter;
     const getName = () => playerName;
     const getMarker = () => playerMarker;
-     
+    const getScore = () => score;
+
+    // Add score to player when they win;
+    const addScore = (points) => score += points;
+        
     return {
         getName, 
         getMarker, 
+        getScore,
+        addScore
     };                     
 }
 
