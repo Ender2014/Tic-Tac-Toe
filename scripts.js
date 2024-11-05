@@ -135,7 +135,12 @@ function GameController(){
     };
 
     const playRound = (cellId) => {
+        console.log(
+            `${activePlayer} chose ${cellId}...`
+          );
         board.setCellMarker(cellId, activePlayer.getMarker());
+        switchPlayerTurn();
+        printNewRound();
     };
 
     return {
