@@ -39,37 +39,23 @@ function GameBoard(){
         return true; // No empty cells found, the board is full
     };
 
-    // Function to find the corresponding cell
-    const findCell = (id) => {
+    const markCell = (cellId, marker) => {
         for (const row of board) {
-            const cell = row.find((cell) => {
-                return cell.getCellId() === id;
-            });
+            const cell = row.find((cell) => cell.getCellId() === cellId);
             
             // If we find the cell, check if it’s unoccupied
             if (cell) {
                 // Check if the cell marker is 0 (unoccupied)
                 if (cell.getCellMarker() === 0) {
-                    return cell; // Return the unoccupied cell
+                    // Set the cell to the player's marker
+                    cell.setCellMarker(marker);
+                    return cell; // Return the marked cell
                 } else {
                     return null; // The cell is occupied
                 }
             }
         }
         return null; // Return null if no cell with the given position is found
-    };
-
-    // Mark the cell, if it is already occupied, then return null
-    const markCell = (cellId, marker) => {
-        // Find the cell
-        const cell = findCell(cellId);
-        
-        if (cell === null){
-            return null;
-        }
-
-       // Set the cell to the player's marker
-        cell.setCellMarker(marker);
     };
 
     // Function to print the gameboard
