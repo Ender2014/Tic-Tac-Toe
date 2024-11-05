@@ -3,7 +3,7 @@ function GameBoard(){
     const rows = 3;
     const columns = 3;
     const board = [];
-    let idCounter = 0;
+    let idCounter = 1;
     for (let i = 0; i < rows; i++) {
         board[i] = [];
         for (let j = 0; j < columns; j++) {
@@ -136,9 +136,9 @@ function GameController(){
 
     const playRound = (cellId) => {
         console.log(
-            `${activePlayer.getName()} chose ${cellId}...`
+            `${activePlayer.getName()} chose cell ${cellId}...`
           );
-        board.setCellMarker(cellId, activePlayer.getMarker());
+        board.markCell(cellId, activePlayer.getMarker());
         switchPlayerTurn();
         printNewRound();
     };
