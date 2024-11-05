@@ -232,4 +232,4 @@ const DisplayController = (function (){
 
 })();
 
-const game = GameController();
+const game = Game();
