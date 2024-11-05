@@ -134,25 +134,17 @@ function GameController(){
     };
 
     const printNewRound = () => {
+        board.printBoard();
+        console.log(`It's now ${activePlayer}'s turn.`);
     };
 
     const playRound = () => {
-
-    };
-
-    const startGame = () => {
-
-    };
-
-    const endGame = () => {
-
+        
     };
 
     return {
         getActivePlayer,
         playRound,
-        startGame,
-        endGame
     };
 }
 
