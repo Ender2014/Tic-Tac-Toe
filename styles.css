@@ -1,0 +1,112 @@
+/* CSS Reset - Start*/
+
+@font-face{
+    font-family: Roboto;
+    src: url(recources/roboto-regular-webfont.woff2);
+}
+
+:root {
+    line-height: 1.5;
+    --color-main-clr: #4A90E2;     
+    --color-contrast: #6EB5FF;      
+    --color-accent: #B3D4FF;        
+    --color-btn-hover: #5C9FD9;
+    --color-error: #FF3B30;
+    --color-btn-links:  #6EB5FF;     
+    --color-text-bg: #F1FAFF;      
+    --color-text-main: #F1FAFF; 
+    
+    --fw-thin: 100;
+    --fw-regular: 500;
+    --fw-bold: 600;
+    --fw-black: 700;
+
+    --fs-300: 0.75rem;
+    --fs-400: 1rem;
+    --fs-500: 1.25rem;
+    --fs-600: 1.5rem;
+    --fs-xl: 3rem;
+  
+    --pad-small: 0.75rem;  
+    --pad-mid: 1.5rem;  
+    --pad-large: 2.25rem;   
+}
+
+
+h1, h2, h3, h4, h5, figure, p, ol, ul {
+    margin: 0;
+    padding: 0;
+}
+
+p{
+    font-size: var(--font-size-small);
+    font-weight: var(--fw-thin);
+}
+
+ol[role="list"], ul[role="list"] {
+    list-style: none;
+    padding-inline: 0;
+}
+
+li{
+    list-style: none;
+}
+
+h1, h2, h3, h4, h5 {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+img {
+    display: block;
+    max-inline-size: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+    font-size: 100%;
+}
+
+/* CSS Reset - End*/
+/*------------------------------------------------------------*/
+/* Global - start */
+
+a:hover, button:hover{
+    cursor: pointer; 
+    transform: scale(1.05); 
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Roboto, sans-serif;
+    font-size: var(--font-size-main);
+    font-weight: var(--fw-regular);
+    height: 100vh;
+}
+
+h1{
+    font-size: var(--font-size-header);
+    font-weight: var(--fw-black);
+}
+
+h2{
+    font-size: var(--font-size-large);
+    font-weight: var(--fw-bold);
+}
+
+h3{
+    font-size: var(--font-size-main);
+    font-weight: var(--fw-regular);
+}
+
+p{
+    font-weight: var(--fw-thin);
+}
+
+/* Global - End*/
+/*------------------------------------------------------------*/
