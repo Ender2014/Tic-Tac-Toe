@@ -28,10 +28,11 @@ function GameBoard(){
     const getBoard = () => board;
 
     const isBoardFull = () => {
+        let lol = 0;
         // Check if the board is full
         for (let row of board) {
             for (let cell of row) {
-                if (cell.getCellMarker() === 0) { // Assuming 0 represents an empty cell
+                if (cell.getCellMarker() === 0) { 
                     return false; // Found an empty cell, the board isn't full
                 }
             }
@@ -151,7 +152,12 @@ function Game(player1Name, player2Name){
     const checkResult = () => {
         const gameBoard = board.getBoard(); 
         const size = gameBoard.length;
-    
+       
+        // Return full if board is full
+        if (board.isBoardFull()) {
+            return "full";
+        } 
+
         // Check for horizontal wins
         for (let row = 0; row < size; row++) {
             const firstCellMarker = gameBoard[row][0].getCellMarker();
@@ -180,11 +186,6 @@ function Game(player1Name, player2Name){
             return true; 
         }
         
-        // Return full if board is full
-        if (board.isBoardFull()) {
-            return "full";
-        } 
-
         // Return false if there is no winner yet
         return false;
     };
@@ -206,17 +207,18 @@ function Game(player1Name, player2Name){
 
         // Check results
         const result = checkResult();
-        if (result) {
+        console.log(result)
+        if (result === "full"){
+            console.log(`Board is Full! Tie!`);
+            board.clearBoard();
+            return "full"
+
+        } else if (result) {
             console.log(`Winner is ${activePlayer.getName()}!`);
             activePlayer.addScore(1);
             board.clearBoard();
             return "won";
-
-        } else if (result === "full"){
-            console.log(`Board is Full! Tie!`);
-            board.clearBoard();
-            return "full";
-        }
+        } 
         
         switchPlayerTurn();
         printNewRound();
@@ -264,16 +266,15 @@ function Game(player1Name, player2Name){
 
             if (result === "full" || result === "won") {
                 gameOver = true; // Set game over flag
-
-                if (result === "won") {
+                if (result === "full") {
+                    domTieScore.textContent = parseInt(domTieScore.textContent) + 1; // Increment tie score
+                } else if (result === "won") {
                     if (activePlayer.getName() === names[0]) {
                         domPlayer1Score.textContent = activePlayer.getScore();
                     } else if (activePlayer.getName() === names[1]) {
                         domPlayer2Score.textContent = activePlayer.getScore();
                     }
-                } else if (result === "full") {
-                    domTieScore.textContent = parseInt(domTieScore.textContent) + 1; // Increment tie score
-                }
+                } 
             }
         });
     });
@@ -282,9 +283,8 @@ function Game(player1Name, player2Name){
         // Clear the board and reset game state
         domCells.forEach(cell => {
             const p = cell.children[0];
-            p.textContent = ""; // Clear cell text
+            p.textContent = ""; 
         });
-        game.reset(); // Assuming this resets the game state in your Game object
-        gameOver = false; // Reset game over flag
+        gameOver = false; 
     }
 })();
