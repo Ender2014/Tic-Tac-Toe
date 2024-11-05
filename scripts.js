@@ -27,11 +27,10 @@ function GameBoard(){
     const getBoard = () => board;
 
     // Function to find the corresponding cell
-    const findCell = (row, column) => {
-        for (const boardRow of board) {
-            const cell = boardRow.find((cell) => {
-                const cellPosition = cell.getPosition();
-                return cellPosition.row === row && cellPosition.column === column;
+    const findCell = (id) => {
+        for (const row of board) {
+            const cell = row.find((cell) => {
+                return cell.getCellId() === id;
             });
             
             // If we find the cell, check if it’s unoccupied
@@ -93,6 +92,7 @@ function Cell(row, column, id){
 
     return{
         getPosition,
+        getCellId,
         getCellMarker,
         setCellMarker
     };
@@ -113,7 +113,7 @@ function Player(name, marker){
     const addScore = (points) => score += points;
 
     // Player will make a move;
-    const makeMove = (row, column) => [row, column];
+    const makeMove = (cellID) => cellID;
         
     return {
         getName, 
