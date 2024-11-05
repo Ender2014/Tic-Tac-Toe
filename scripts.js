@@ -135,11 +135,11 @@ function Player(name, marker){
     };                     
 }
 
-function GameController(){
+function Game(player1Name, player2Name){
     // Properties
     const board = GameBoard();
-    const playerOne =  Player("George", 1);
-    const playerTwo =  Player("Lucy", 2);
+    const playerOne =  Player(player1Name, 1);
+    const playerTwo =  Player(player2Name, 2);
     let activePlayer = playerOne;
 
     const getActivePlayer = () => activePlayer;
@@ -227,5 +227,9 @@ function GameController(){
         playRound,
     };
 }
+
+const DisplayController = (function (){
+
+})();
 
 const game = GameController();
