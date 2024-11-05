@@ -123,11 +123,11 @@ p{
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: var(--pad-small);
-    width: min(60vw, 50em);
+    width:min(60vw, 50em);
     height: min(60vw, 50em);
 }
 
-@media (max-width: 37.5em) {
+@media (max-width: 40em) {
     .game-board {
         width: 80vw;
         height: 80vw;
