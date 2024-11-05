@@ -127,12 +127,10 @@ function GameController(){
     const playerTwo =  Player("Lucy", 2);
     let activePlayer = playerOne;
 
-    const getActivePlayer = () =>{
+    const getActivePlayer = () => activePlayer;
 
-    };
-
-    const switchPlayer = () => {
-
+    const switchPlayerTurn = () => {
+        activePlayer = (activePlayer === playerOne) ? playerTwo : playerOne;
     };
 
     const printNewRound = () => {
