@@ -13,7 +13,7 @@ function GameBoard(){
 
     // Function to reset the board array;
     const clearBoard = () => {
-        board.splice(0, arr.length);
+        board.splice(0, rows);
         idCounter = 0;
         for (let i = 0; i < rows; i++) {
             board[i] = [];
@@ -27,11 +27,6 @@ function GameBoard(){
     const getBoard = () => board;
 
     const isBoardFull = () => {
-        // Check if there is a winner first
-        if (checkResult() !== 0) {
-            return false; // There's a winner, so the board isn't full in terms of a draw
-        }
-    
         // Check if the board is full
         for (let row of board) {
             for (let cell of row) {
@@ -184,8 +179,15 @@ function GameController(){
             return true; 
         }
         
-        return false; // Return false if there is no winner yet
+        // Return full if board is full
+        if (board.isBoardFull()) {
+            return "full";
+        } 
+
+        // Return false if there is no winner yet
+        return false;
     };
+
     const printNewRound = () => {
         board.printBoard();
         console.log(`It's now ${activePlayer.getName()}'s turn.`);
@@ -200,12 +202,17 @@ function GameController(){
             console.log( `Cell ${id} doesn't exist / already occupied!` );
             return;
         }
-        // Full?
 
-        // Win Con
-        const activerPlayerWon = checkResult();
-        if (activerPlayerWon) {
+        // Check results
+        const result = checkResult();
+        if (result) {
             console.log(`Winner is ${activePlayer.getName()}!`);
+            board.clearBoard();
+            return;
+
+        } else if (result === "full"){
+            console.log(`Board is Full! Tie!`);
+            board.clearBoard();
             return;
         }
         
