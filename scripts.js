@@ -131,12 +131,12 @@ function GameController(){
 
     const printNewRound = () => {
         board.printBoard();
-        console.log(`It's now ${activePlayer}'s turn.`);
+        console.log(`It's now ${activePlayer.getName()}'s turn.`);
     };
 
     const playRound = (cellId) => {
         console.log(
-            `${activePlayer} chose ${cellId}...`
+            `${activePlayer.getName()} chose ${cellId}...`
           );
         board.setCellMarker(cellId, activePlayer.getMarker());
         switchPlayerTurn();
@@ -149,3 +149,4 @@ function GameController(){
     };
 }
 
+const game = GameController();
