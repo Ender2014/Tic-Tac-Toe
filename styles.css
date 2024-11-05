@@ -26,7 +26,7 @@
     --fs-600: 2.25rem;
     --fs-xl: 13rem;
   
-    --pad-small: 0.75rem;  
+    --pad-small: 0.4rem;  
     --pad-mid: 1.5rem;  
     --pad-large: 2.25rem;   
 }
@@ -146,6 +146,10 @@ p{
     color: var(--color-contrast);
     padding: var(--pad-mid);
     position: relative;
+}
+
+.cell:hover{
+        cursor: pointer;
 }
 
 .cell p{

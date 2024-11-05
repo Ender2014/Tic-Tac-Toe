@@ -10,12 +10,11 @@ function GameBoard(){
           board[i].push(Cell(i, j, idCounter++));
         }
       }
+      
 
     // Function to reset the board array;
     const clearBoard = () => {
         board.splice(0, rows);
-
-        console.log(board.length)
         idCounter = 1;
         for (let i = 0; i < rows; i++) {
             board[i] = [];
@@ -126,6 +125,10 @@ function Player(name, marker){
 
     // Add score to player when they win;
     const addScore = (points) => score += points;
+
+    // Move player
+    const makeMove = (position) => position;
+
         
     return {
         getName, 
@@ -138,8 +141,8 @@ function Player(name, marker){
 function Game(player1Name, player2Name){
     // Properties
     const board = GameBoard();
-    const playerOne =  Player(player1Name, 1);
-    const playerTwo =  Player(player2Name, 2);
+    const playerOne =  Player(player1Name, "X");
+    const playerTwo =  Player(player2Name, "O");
     let activePlayer = playerOne;
 
     const getActivePlayer = () => activePlayer;
@@ -202,7 +205,7 @@ function Game(player1Name, player2Name){
         const markedCell = board.markCell(cellId, activePlayer.getMarker())
         if( markedCell === null) {
             console.log( `Cell ${cellId} doesn't exist / already occupied!` );
-            return;
+            return "error";
         }
 
         // Check results
@@ -210,12 +213,12 @@ function Game(player1Name, player2Name){
         if (result) {
             console.log(`Winner is ${activePlayer.getName()}!`);
             board.clearBoard();
-            return;
+            return "won";
 
         } else if (result === "full"){
             console.log(`Board is Full! Tie!`);
             board.clearBoard();
-            return;
+            return "full";
         }
         
         switchPlayerTurn();
@@ -228,8 +231,30 @@ function Game(player1Name, player2Name){
     };
 }
 
-const DisplayController = (function (){
+// Display Controller
+(function() {
+    const game = Game("player1", "player2");
+    const domBoard = document.querySelector(".game-board");
+    const domCells = document.querySelectorAll(".cell");
 
+    domCells.forEach((cell, index) => {
+        let p = cell.children[0];
+
+        cell.addEventListener("click", () => {
+            let activePlayer = game.getActivePlayer();
+            let result = game.playRound(index + 1);
+
+            p.textContent = activePlayer.getMarker();
+
+            if(result === "full" || result === "won"){
+                for(const cell of domCells){
+                    let p = cell.children[0];
+                    p.textContent = "";
+                }
+            }
+        });
+    });
 })();
+  
 
-const game = Game();
+
