@@ -7,7 +7,7 @@ function GameBoard(){
     for (let i = 0; i < rows; i++) {
         board[i] = [];
         for (let j = 0; j < columns; j++) {
-          board[i].push(Cell(i, j, idCounter++));
+          board[i].push(Cell(idCounter++));
         }
       }
 
@@ -19,7 +19,7 @@ function GameBoard(){
         for (let i = 0; i < rows; i++) {
             board[i] = [];
             for (let j = 0; j < columns; j++) {
-              board[i].push(Cell(i, j, idCounter++));
+              board[i].push(Cell(idCounter++));
             }
           }
     };
@@ -90,11 +90,10 @@ function GameBoard(){
     }
 }
 
-function Cell(row, column, id){
+function Cell(id){
     // Properties
     let cellMarker = 0;
     const cellId = id;
-    const position = {row, column};
 
     const setCellMarker = (marker) => cellMarker = marker;
 
@@ -102,10 +101,7 @@ function Cell(row, column, id){
 
     const getCellId = () => cellId;
 
-    const getPosition = () => position;
-
     return{
-        getPosition,
         getCellId,
         getCellMarker,
         setCellMarker
