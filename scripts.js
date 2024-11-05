@@ -1,5 +1,5 @@
 function GameBoard(){
-    // Properties;
+    // Attributes
     const rows = 3;
     const columns = 3;
     const board = [];
@@ -75,6 +75,7 @@ function GameBoard(){
 }
 
 function Cell(row, column){
+    // Properties
     let cellMarker = 0;
     const position = {row, column};
 
@@ -93,7 +94,7 @@ function Cell(row, column){
     };
 }
 
-function createPlayer(name, marker){
+function Player(name, marker){
     // Properties;
     const playerName = name;
     const playerMarker = marker;
@@ -120,6 +121,40 @@ function createPlayer(name, marker){
 }
 
 function GameController(){
+    // Properties
+    const board = GameBoard();
+    const playerOne =  Player("George", 1);
+    const playerTwo =  Player("Lucy", 2);
+    let activePlayer = playerOne;
 
+    const getActivePlayer = () =>{
+
+    };
+
+    const switchPlayer = () => {
+
+    };
+
+    const printNewRound = () => {
+    };
+
+    const playRound = () => {
+
+    };
+
+    const startGame = () => {
+
+    };
+
+    const endGame = () => {
+
+    };
+
+    return {
+        getActivePlayer,
+        playRound,
+        startGame,
+        endGame
+    };
 }
 
