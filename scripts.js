@@ -14,11 +14,12 @@ function GameBoard(){
     // Function to reset the board array;
     const clearBoard = () => {
         board.splice(0, rows);
-        idCounter = 0;
+        console.log(board.length)
+        idCounter = 1;
         for (let i = 0; i < rows; i++) {
             board[i] = [];
             for (let j = 0; j < columns; j++) {
-              board[i].push(Cell(i, j));
+              board[i].push(Cell(i, j, idCounter++));
             }
           }
     };
@@ -199,7 +200,7 @@ function GameController(){
         // Error checking
         const markedCell = board.markCell(cellId, activePlayer.getMarker())
         if( markedCell === null) {
-            console.log( `Cell ${id} doesn't exist / already occupied!` );
+            console.log( `Cell ${cellId} doesn't exist / already occupied!` );
             return;
         }
 
