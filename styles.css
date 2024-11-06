@@ -222,16 +222,6 @@ p{
 }
 
 
-@media (min-width: 80em) {
-    .game-board {
-        width: 50vw; 
-        height: 50vw; 
-    }
-
-    .cell p {
-        font-size: calc(8rem + 1vw);
-    }
-}
 
 
 /* Gameboard - End*/
